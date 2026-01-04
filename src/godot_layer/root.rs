@@ -1,31 +1,26 @@
 use godot::prelude::*;
 
-use crate::core::world::World;
-
-/// Godot-facing wrapper around the core World.
 #[derive(GodotClass)]
 #[class(base=Node)]
 pub struct RealmWorld {
-    world: Option<World>,
+    #[base]
+    base: Base<Node>,
 }
 
 #[godot_api]
 impl RealmWorld {
-    /// Called when the node is created.
+    /// Simple callable method to prove Godot -> Rust works
     #[func]
-    pub fn initialize(&mut self) {
-        godot_print!("RealmWorld.initialize() called");
-        self.world = Some(World::new());
+    pub fn debug_ping(&self) {
+        godot_print!("RealmWorld.debug_ping() called");
     }
 }
 
 #[godot_api]
 impl INode for RealmWorld {
-    fn init(_base: Base<Node>) -> Self {
+    fn init(base: Base<Node>) -> Self {
         godot_print!("RealmWorld constructed");
-        Self {
-            world: None,
-        }
+        Self { base }
     }
 
     fn ready(&mut self) {
