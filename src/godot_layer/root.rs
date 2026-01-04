@@ -1,36 +1,21 @@
 use godot::prelude::*;
 
-use crate::core::world::World;
-
 #[derive(GodotClass)]
-#[class(base=Node)]
-pub struct RealmWorld {
+#[class(base=Node, init)]
+pub struct RealmlibRoot {
     #[base]
     base: Base<Node>,
-
-    world: World,
 }
 
-#[godot_api]
-impl RealmWorld {
-    #[func]
-    pub fn debug_ping(&self) {
-        godot_print!("RealmWorld.debug_ping() called");
-    }
-}
-
-#[godot_api]
-impl INode for RealmWorld {
+impl RealmlibRoot {
     fn init(base: Base<Node>) -> Self {
-        godot_print!("RealmWorld constructed");
-
-        Self {
-            base,
-            world: World::new(),
-        }
+        Self { base }
     }
+}
 
+#[godot_api]
+impl INode for RealmlibRoot {
     fn ready(&mut self) {
-        godot_print!("RealmWorld ready()");
+        godot_print!("RealmlibRoot ready");
     }
 }
